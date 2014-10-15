@@ -33,18 +33,48 @@ STDIN.read.split("\n").each do |line|
               end
   output += timestamp + ' '
 
-  app = if data['app']
+  host = if data['host']
+          data.delete('host')
+        else
+          ''
+        end
+  output += host + ' '
+
+  level = if data['level']
+          data.delete('level')
+        else
+          ''
+        end
+  output += level + ' '
+
+  application = if data['application']
+          data.delete('application')
+        elsif data['app']
           data.delete('app')
         elsif data['@source']
           data.delete('@source')
         else
           ''
         end
-  output += app + ' '
+  output += application + ' '
+
+  pid = if data['pid']
+          data.delete('pid')
+        else
+          ''
+        end
+  output += pid.to_s + ' '
+
+  message = if data['message']
+          data.delete('message')
+        else
+          ''
+        end
+  output += '"' + message + '"'
 
   result = get_keyval(nil, data)
   unless result.empty?
-    output += result.join(' ')
+    output += '[ ' + result.join(' ') + ' ]'
   end
 
   puts output
