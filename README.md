@@ -11,7 +11,7 @@ tail -f my.log | ./jsontail.rb
 ### Output
 
 ```
-<@timestamp|time> <app|@source> [key=value, for all other fields]
+@timestamp host LEVEL application pid "message" - field1=value1 - nested.field2=value2 ...
 ```
 
 Nested items will be displayed as `parent1.parent2.key=value`.

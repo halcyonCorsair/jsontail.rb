@@ -8,7 +8,7 @@ def get_keyval(parents, myHash)
     if value.is_a?(Hash)
       result = get_keyval("#{parents.nil? ? '' : parents + '.'}#{key}", value)
       unless result.empty?
-        result.join(' ')
+        result.join(' - ')
       end
     else
       if key == '@timestamp' && parents.nil?
@@ -45,7 +45,7 @@ STDIN.read.split("\n").each do |line|
         else
           ''
         end
-  output += level + ' '
+  output += level.upcase + ' '
 
   application = if data['application']
           data.delete('application')
@@ -70,11 +70,11 @@ STDIN.read.split("\n").each do |line|
         else
           ''
         end
-  output += '"' + message + '"'
+  output += '"' + message + '" - '
 
   result = get_keyval(nil, data)
   unless result.empty?
-    output += '[ ' + result.join(' ') + ' ]'
+    output += result.join(' - ')
   end
 
   puts output
